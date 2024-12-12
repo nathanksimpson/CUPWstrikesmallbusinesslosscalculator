@@ -1,92 +1,69 @@
-
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-  <meta charset="UTF-8">
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Canada Postal Strike Loss Tracker</title>
-
   <style>
-
     body {
-
       font-family: Arial, sans-serif;
-
       text-align: center;
-
       padding: 20px;
-
       background-color: #f4f4f4;
-
     }
-
     h1 {
-
       color: #333;
-
     }
-
     #loss-amount {
-
       font-size: 2rem;
-
       font-weight: bold;
-
-      color: #d9534f;
-
+      color: red;       /* Red font color */
+      background: black;/* Black background box */
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 5px;
     }
-
     footer {
-
       margin-top: 20px;
-
       font-size: 0.9rem;
-
       color: #666;
-
     }
-
   </style>
-
 </head>
-
 <body>
-
-  <h1>Estimated Small Business Loss Tracker</h1>
-
-  <p id="description">Total loss caused by the Canada Postal Union strike:</p>
-
+  <h1>Estimated Small Business Loss During Canada Postal Strike</h1>
+  <p>The strike started on November 15th of the current year.</p>
+  <p>Current Total Loss:</p>
   <div id="loss-amount">$0.00</div>
-
-  <footer>Data is based on an estimated loss of $2.78 per second.</footer>
-
-
+  <footer>Calculating losses at $78 million per day, updated every second.</footer>
 
   <script>
+    // Set daily loss and calculate loss per second
+    const dailyLoss = 78000000; // 78 million dollars per day
+    const secondsPerDay = 86400; 
+    const lossPerSecond = dailyLoss / secondsPerDay;
 
-    const lossPerSecond = 2.78; // Adjust this value based on real estimates
-
-    let totalLoss = 0;
-
-
+    // Get current year and set the strike start date (November 15, current year)
+    const currentYear = new Date().getFullYear();
+    // Note: Month is zero-based (January=0, November=10)
+    const strikeStart = new Date(currentYear, 10, 15, 0, 0, 0);
 
     function updateLoss() {
-
-      totalLoss += lossPerSecond;
-
-      document.getElementById("loss-amount").textContent = `$${totalLoss.toFixed(2)}`;
-
+      const now = new Date();
+      const diffInSeconds = (now - strikeStart) / 1000;
+      
+      // If we are before November 15, diffInSeconds will be negative or zero.
+      // In that case, display 0.00. Otherwise, display the calculated loss.
+      const totalLoss = diffInSeconds > 0 ? diffInSeconds * lossPerSecond : 0;
+      
+      document.getElementById("loss-amount").textContent =
+        `$${totalLoss.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
     }
 
-
-
-    setInterval(updateLoss, 1000); // Update every second
-
+    // Update every second
+    setInterval(updateLoss, 1000);
+    // Initial call
+    updateLoss();
   </script>
-
 </body>
-
 </html>
