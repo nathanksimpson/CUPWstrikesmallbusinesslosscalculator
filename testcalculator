@@ -1,0 +1,92 @@
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Canada Postal Strike Loss Tracker</title>
+
+  <style>
+
+    body {
+
+      font-family: Arial, sans-serif;
+
+      text-align: center;
+
+      padding: 20px;
+
+      background-color: #f4f4f4;
+
+    }
+
+    h1 {
+
+      color: #333;
+
+    }
+
+    #loss-amount {
+
+      font-size: 2rem;
+
+      font-weight: bold;
+
+      color: #d9534f;
+
+    }
+
+    footer {
+
+      margin-top: 20px;
+
+      font-size: 0.9rem;
+
+      color: #666;
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <h1>Estimated Small Business Loss Tracker</h1>
+
+  <p id="description">Total loss caused by the Canada Postal Union strike:</p>
+
+  <div id="loss-amount">$0.00</div>
+
+  <footer>Data is based on an estimated loss of $2.78 per second.</footer>
+
+
+
+  <script>
+
+    const lossPerSecond = 2.78; // Adjust this value based on real estimates
+
+    let totalLoss = 0;
+
+
+
+    function updateLoss() {
+
+      totalLoss += lossPerSecond;
+
+      document.getElementById("loss-amount").textContent = `$${totalLoss.toFixed(2)}`;
+
+    }
+
+
+
+    setInterval(updateLoss, 1000); // Update every second
+
+  </script>
+
+</body>
+
+</html>
